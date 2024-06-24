@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "work-logger.helloWorld",
-        "title": "Hello World"
+        "command": "work-logger.logWork",
+        "title": "Work Logger: Log Work"
       }
     ]
   },
