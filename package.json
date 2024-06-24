@@ -9,7 +9,10 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:work-logger.logWork",
+    "onView:workLog"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
@@ -17,7 +20,15 @@
         "command": "work-logger.logWork",
         "title": "Work Logger: Log Work"
       }
-    ]
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "workLog",
+          "name": "WORK-LOG"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "yarn run package",
