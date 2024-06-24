@@ -3,6 +3,12 @@
   "displayName": "work-logger",
   "description": "",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KentarouKoizumi/work-logger.git"
+  },
+  "license": "MIT",
+  "publisher": "kentaroskoizumi",
   "engines": {
     "vscode": "^1.90.0"
   },

@@ -85,17 +85,40 @@ class WorkLogProvider implements vscode.TreeDataProvider<LogItem> {
   }
 
   private getLogItems(): LogItem[] {
-    return this.logEntries
+    const items: LogItem[] = [];
+
+    this.logEntries
       .slice()
       .reverse()
-      .map(
-        (entry) =>
-          new LogItem(
-            entry.note,
-            new Date(entry.time).toLocaleString(),
-            vscode.TreeItemCollapsibleState.None
-          )
-      );
+      .forEach((entry, index, array) => {
+        const isHeading = entry.note.startsWith("# ");
+        if (isHeading) {
+          items.push(
+            new LogItem(
+              entry.note,
+              new Date(entry.time).toLocaleString(),
+              vscode.TreeItemCollapsibleState.None,
+              false
+            )
+          );
+          if (index < array.length - 1) {
+            items.push(
+              new LogItem("---", "", vscode.TreeItemCollapsibleState.None, true)
+            );
+          }
+        } else {
+          items.push(
+            new LogItem(
+              entry.note,
+              new Date(entry.time).toLocaleString(),
+              vscode.TreeItemCollapsibleState.None,
+              false
+            )
+          );
+        }
+      });
+
+    return items;
   }
 }
 
@@ -103,10 +126,13 @@ class LogItem extends vscode.TreeItem {
   constructor(
     public readonly label: string,
     public readonly date: string,
-    public readonly collapsibleState: vscode.TreeItemCollapsibleState
+    public readonly collapsibleState: vscode.TreeItemCollapsibleState,
+    public readonly isDivider: boolean
   ) {
     super(label, collapsibleState);
-    this.description = date;
+    if (!isDivider) {
+      this.description = date;
+    }
   }
 
   contextValue = "logItem";
